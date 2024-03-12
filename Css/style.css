@@ -1,0 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+header{
+    margin: 10px ;
+    width: 98%;
+    height: 100px;
+    background: whitesmoke;
+}
+
+header img{
+    width: 60px;
+    margin: 10px 0 0 20px;
+}
+
+header ul{
+    position: absolute;
+    top: 50px;
+    left: 65%;  
+}
+
+header ul li{
+    padding: 2px;
+    display: inline;
+    margin-inline: 10px;
+    margin-block: 10px;
+    font-size: 22px;
+    color: rgb(104, 98, 98);
+    transition: all 1.5s;
+    font-weight: bold;
+    
+}
+li:hover{
+    color: rgb(137, 233, 92);
+}
+.seccion{
+    position:fixed;
+    left: 36.5%;
+    top: 200px;
+    /* align-items: center; */
+}
+.seccion img{
+    display: block;
+    width: 450px;
+    margin-block: 40px;
+    opacity: 10;
+    z-index: 1000;   
+}
+.video{
+ margin-top: -121px;
+    padding: 0;
+    width: 100%;
+    height: 136.6%;
+    position: fixed; 
+    z-index: -1000;
+    /* opacity: 0.7; */
+}
+
+/*Para los formularios*/
+
+.formulario{ 
+    text-align: center;   
+}
+.formulario h1{
+    color: white;
+    padding: 1%;
+    font-size: 50px;
+    background: purple;
+    width: max-content;
+    height: max-content;
+    margin: 100px auto 5% auto;
+    border-radius: 25px;
+    text-align: center;
+}
+.formulario label{
+    display: block;
+    margin-left:-0.2%;
+    font-size: 20px;
+    padding: 0.5%;
+}
+.formulario #Numero{
+    margin-left: -10%;
+}
+.formulario input{
+    display: block;
+    font-size: 20px;
+    border-radius: 20px;
+    margin: auto;
+    padding: 1%;
+}
+.boton{
+    margin-top: 2%;
+    background: rgb(77, 239, 77);
+    padding: 1%;
+    font-size: 15px;
+    border-radius: 20px 0;
+}
+.formulario select{
+    font-size: 20px;
+    border-radius: 20px;
+    margin: auto;
+    padding: 1%;
+    width: 270px;
+    text-align: center;
+    border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}

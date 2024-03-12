@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link rel="website icon" type="icon" href="./img/icon3.png">
+
+    <link rel="stylesheet" href="./Css/estilos.css">
+
+</head>
+<body>
+    <header>
+        <img class="banner" src="/img/bannerRe.png" alt="#">
+        <button id="btnCerrarSesion">CERRAR SESION</button>
+        
+    </header>
+    <H1>BIENVENIDO ADMINISTRAD@R: <span id="nombreUsuario"></span></H1>
+    <div id="buttons">
+    <button id="btnUsuarios">Visualizar Usuarios</button>
+    <button id="btnManzanas">Visualizar Manzanas</button>
+    <button><a href="/Actualizar.html" id="actualizar"> Crear Manzana</button></a>
+    <button id="btnServicios">Visualizar Servicios</button>
+    <button><a href="/ActualizarServicio.html" id="actualizar">Crear Servicio</button></a>
+</div>
+    <br>
+    <br>
+    <div id="tablausuarios" style="display: none;">
+        <h2>Usuarios-Registrados</h2>
+        <br>
+        <table id="tabla-visualizar-usuarios">
+            <thead>
+            <tr>
+                <th>|Id|</th>
+                <th>|Nombre|</th>
+                <th>|Tipo|</th>
+                <th>|Documento|</th>
+                <th>|Id_manzanas|</th>
+            </tr>
+        </thead>
+        <tbody id="lista-usuarios"></tbody>
+        </table>
+    </div>
+
+    <div id="tablamanzanas" style="display: none;">
+        <h2>Manzanas-Registrados</h2>
+        <br>
+        <table id="tabla-visualizar-manzanas">
+            <thead>
+            <tr>
+                <th>|Id|</th>
+                <th>|Nombre|</th>
+                <th>|Direccion|</th>
+            </tr>
+        </thead>
+        <tbody id="lista-manzanas"></tbody>
+        </table>
+    </div>
+    <div id="tablaservicios" style="display: none;">
+        <h2>Servicios-Registrados</h2>
+        <br>
+        <table id="tabla-visualizar-servicios">
+            <thead>
+            <tr>
+                <th>|Id|</th>
+                <th>|Nombre|</th>
+                <th>|Direccion|</th>
+            </tr>
+        </thead>
+        <tbody id="lista-servicios"></tbody>
+        </table>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            const xhrUsuario =new XMLHttpRequest();
+        xhrUsuario.open('POST', '/obtener-usuario',true);
+        xhrUsuario.onreadystatechange=function(){
+            if(xhrUsuario.readyState==4){
+                if(xhrUsuario.status==200){
+                    const usuario= JSON.parse(xhrUsuario.responseText);
+                    document.getElementById('nombreUsuario').textContent=usuario.nombre;
+                }
+                else{
+                    console.error('error al obtener el usuario')
+                }
+            }
+        };
+        xhrUsuario.send();
+
+        const tablausuarios = document.getElementById('tablausuarios');
+        const TablaVisualizarUsuario = document.getElementById('tabla-visualizar-usuarios');
+        const btnUsuarios = document.getElementById('btnUsuarios');
+        const listausuarios = document.getElementById('lista-usuarios');
+
+        const tablamanzanas = document.getElementById('tablamanzanas');
+        const TablaVisualizarManzanas = document.getElementById('tabla-visualizar-manzanas');
+        const btnManzanas = document.getElementById('btnManzanas');
+        const listamanzanas = document.getElementById('lista-manzanas');
+
+        
+        const  tablaservicios=document.getElementById('tablaservicios');
+        const TablaVisualizarServicios = document.getElementById('tabla-visualizar-servicios');
+        const btnServicios = document.getElementById('btnServicios');
+        const listaservicios = document.getElementById('lista-servicios');
+        
+        //obtener usuarios
+        btnUsuarios.addEventListener('click',()=>{
+            
+            const xhrObtenerUsuario = new XMLHttpRequest();
+            xhrObtenerUsuario.open('POST', '/mostrar-usuarios', true);
+            xhrObtenerUsuario.setRequestHeader('Content-Type', 'application/json');
+            xhrObtenerUsuario.onreadystatechange=function(){
+                if(xhrObtenerUsuario.readyState===4){
+                    if(xhrObtenerUsuario.status===200){
+                        const data = JSON.parse(xhrObtenerUsuario.responseText)
+                        listausuarios.innerHTML = '';
+                        data.usuarios.map(usuario => {
+                            const row=document.createElement('tr');
+                            row.innerHTML=
+                            `<td>${usuario.id_user}</td>
+                            <td>${usuario.Nombre}</td>
+                            <td>${usuario.Tipo}</td>
+                            <td>${usuario.Documento}</td>
+                            <td>${usuario.id_manzanas }</td>
+                            <td><button id="editarruser" onclick="editarUsuario(${usuario.id_user})"><a href="/EditarUser.html">Editar</a></button></td>
+                            <td><button id="eliminaruser" onclick="eliminarUsuario(${usuario.id_user})">Eliminar</button></td>
+                            
+                            `
+                            TablaVisualizarUsuario.appendChild(row);
+                        });
+                        tablausuarios.style.display = "block";
+                        // tablausuarios.style.alignContent = "center";
+                    }
+                    else{
+                        console.error('error al obtener usuario')
+                    }
+                }
+            }
+            xhrObtenerUsuario.send();
+        })
+        const EditarUsuario =document.getElementById('editarruser');
+        
+
+
+        btnManzanas.addEventListener('click',()=>{
+            const xhrObtenerManzanas = new XMLHttpRequest();
+            xhrObtenerManzanas.open('POST', '/mostrar-manzanas', true);
+            xhrObtenerManzanas.setRequestHeader('Content-Type', 'application/json');
+            xhrObtenerManzanas.onreadystatechange=function(){
+                if(xhrObtenerManzanas.readyState===4){
+                    if(xhrObtenerManzanas.status===200){
+                        const data2 = JSON.parse(xhrObtenerManzanas.responseText)
+                        listamanzanas.innerHTML = '';
+                        data2.manzanas.map(manzana=>{
+                            const row=document.createElement('tr');
+                            row.innerHTML=
+                            `
+                            <td>${manzana.id_manzanas}</td>
+                            <td>${manzana.Nombre}</td>
+                            <td>${manzana.Direccion}</td>
+                            <td><button class="actualizarmanzana" onclick="actualizarmanzana(${manzana})">Actualizar</button></td>
+                            
+                            `
+                            TablaVisualizarManzanas.appendChild(row);
+                        });
+                        tablamanzanas.style.display = 'block'
+                    } else{
+                        console.error('error al obtener manzanas')
+                    }
+                }
+
+            }
+            xhrObtenerManzanas.send();
+        })
+        btnServicios.addEventListener('click',()=>{
+            const xhrObtenerServicios = new XMLHttpRequest();
+            xhrObtenerServicios.open('POST', '/mostrar-servicios', true);
+            xhrObtenerServicios.setRequestHeader('Content-Type', 'application/json');
+            xhrObtenerServicios.onreadystatechange=function(){
+                if(xhrObtenerServicios.readyState===4){
+                    if(xhrObtenerServicios.status===200){
+                        const data3 = JSON.parse(xhrObtenerServicios.responseText)
+                        listaservicios.innerHTML = '';
+                        data3.servicioss.map(servicio=>{
+                            const row=document.createElement('tr');
+                            row.innerHTML=
+                            `
+                            <td>${servicio.id_servicios}</td>
+                            <td>${servicio.Nombre}</td>
+                            <td>${servicio.Tipo}</td>
+                            <td><button class="actualizarservicio" onclick="actualizarservicio(${servicio})">Actualizar</button></td>
+                            <td><button onclick="eliminarservicio(${servicio.id_servicios})">Eliminar</button></td>
+                            `
+                            TablaVisualizarServicios.appendChild(row);
+                        })
+                        tablaservicios.style.display ='block'
+                    }else{
+                        console.error('error al obtener manzanas')
+                    }
+
+                }
+            }
+            xhrObtenerServicios.send();
+        })
+        const btnCerrarSesion =document.getElementById('btnCerrarSesion');
+        btnCerrarSesion.addEventListener('click',()=>{
+            const xhrCerrarSesion = new XMLHttpRequest();
+            xhrCerrarSesion.open('POST','/cerrar-sesion',true);
+            xhrCerrarSesion.onreadystatechange=function(){
+                if(xhrCerrarSesion.readyState===4 && xhrCerrarSesion.status===200){
+                    window.location.href= '/index.html';
+            }
+            else{
+                        console.error('error al cerrar sesion')
+                    }
+        }
+        xhrCerrarSesion.send();
+    })
+
+    //no permite ir hacia atras
+    window.onload=function(){
+        window.history.forward();
+    };
+    //caundo va hacia atras se recarga la pagina
+    window.onpageshow=function(evento){
+        if(evento.persisted){
+            window.location.reload();
+        }
+    }
+})
+
+//editar usuario
+function editarUsuario(id_user){
+            const xhrEditarusuario = new XMLHttpRequest();
+            xhrEditarusuario.open('POST', `/editar-usuarios/${id_user}`,true);
+            xhrEditarusuario.setRequestHeader('Content-Type', 'application/json');
+            xhrEditarusuario.onreadystatechange=function(){
+                if(xhrEditarusuario.readyState===4){
+                    if(xhrEditarusuario.status===200){
+                        alert("usuario creado");
+            window.location.reload();
+                    }
+                    else{
+                        console.error('error al obtener usuario')
+                    }
+                }
+    }
+    xhrEditarusuario.send();
+}
+//eliminar usuarios
+function eliminarUsuario(id_user){
+    const xhrEliminarUsuario = new XMLHttpRequest();
+    xhrEliminarUsuario.open('DELETE', `/eliminar-usuario/${id_user}`,true);
+    xhrEliminarUsuario.setRequestHeader('Content-Type', 'application/json');
+    xhrEliminarUsuario.onreadystatechange=function(){
+        if(xhrEliminarUsuario.readyState===4 && xhrEliminarUsuario.status===200){
+            alert("Usuario Eliminado");
+            window.location.reload();
+        }
+        else{
+                console.error('error al eliminar el servicio');
+            }
+    }
+    xhrEliminarUsuario.send();
+}
+function eliminarservicio(id_servicios){
+    console.log(id_servicios)
+    const xhrEliminarServicio = new XMLHttpRequest();
+    xhrEliminarServicio.open('DELETE', `/eliminar-servicios/${id_servicios}`,true);
+    xhrEliminarServicio.setRequestHeader('Content-Type', 'application/json');
+    xhrEliminarServicio.onreadystatechange=function(){
+        if(xhrEliminarServicio.readyState===4 && xhrEliminarServicio.status===200){
+            alert("Servicio Eliminado");
+            window.location.reload();
+        }
+        else{
+        console.error('error al eliminar el servicio');
+    }
+    }
+    xhrEliminarServicio.send();
+}
+
+
+    </script>
+</body>
+</html>

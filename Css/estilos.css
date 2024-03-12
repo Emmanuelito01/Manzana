@@ -1,0 +1,125 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+header{
+    /* margin: 10px ; */
+    width: 100%;
+    height: 120px;
+background: linear-gradient(0deg,rgba(230,206,239,1)  0%, rgba(144,50,187,1) 100% );
+}
+body{
+    /* background: rgb(144,50,187); */
+    width: 100%;
+    height: 100%;
+background: linear-gradient(0deg, rgba(144,50,187,995) 0%, rgba(230,206,239,-995) 100% );
+background-size: cover;
+background-attachment: fixed;
+}
+h1{
+    text-align: center;
+}
+
+#buttons, #botonUsu{
+    text-align: center;
+}
+#s_disp, #btnDesplegarServiciosGuardados{
+    margin-left: 0%;
+    display: inline;
+    font-size: larger;
+    display: inline-flex;
+}
+li{
+    list-style: none;
+}
+#servicios-container::before{
+    align-items: center;
+}
+#lista-servicios, #lista-servicios-guardados, #tablausuarios, #tablamanzanas,#tablaservicios, tr{
+    align-items: center;
+    /* display: inline-block; */
+    margin-left: 30%;
+    width:fit-content;
+    /* background: rgb(234, 234, 234); */
+    border-radius: 10px;
+    font-size:medium;
+    border: 5px solid rgb(0, 0, 0);
+}
+#servicios-container ,#servicios-guardados-container{
+    align-items: center;
+    /* display: inline-block; */
+    margin-left: 40%;
+    width:fit-content;
+    /* background: rgb(234, 234, 234); */
+    border-radius: 10px;
+    font-size:medium;
+    border: 5px solid rgb(0, 0, 0);
+}
+header ul{
+    position: absolute;
+    top: 50px;
+    left: 85%;
+}
+a{
+    text-decoration: none;
+}
+header ul li{
+    padding: 2px;
+    display: inline;
+    margin-inline: 10px;
+    margin-block: 10px;
+    font-size: 22px;
+    color: rgb(85, 78, 78);
+    transition: all 1.5s;
+    font-weight: bold;
+}
+li:hover{
+    color: #663399;
+    
+}
+img{
+    height: 100px;
+}
+button{
+    text-decoration: none;
+    color: black;
+    background: #efefef;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    font-family: serif;
+    cursor: pointer;
+}
+button:hover{
+    color: #663399;
+}
+#btnCerrarSesion{
+    position: absolute;
+    left: 82%;
+    top: 8%;
+    font-size:x-large;
+    width: auto;
+height: auto;
+}
+#borrar{
+    position: absolute;
+    left: 48.7%;
+    top: auto;
+}
+#fechaHora:hover{
+    color: #663399;
+}
+#actualiza{
+    text-align: center;
+    font-size: 35px;
+}
+#inicia{
+    text-align: center;
+    font-size: 55px;
+}
+#actualizar{
+    text-decoration: none;
+    color: black;
+}

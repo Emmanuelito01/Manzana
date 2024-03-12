@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="sp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro</title>
+    <link rel="stylesheet" href="./Css/style.css">
+    <link rel="website icon" type="icon" href="./img/icon3.png">
+
+</head>
+<body>
+    <form class="formulario" action="http://localhost:3000/crear" method="POST">
+       <h1>Registre sus datos</h1>
+       <label for="Nombre">Nombre</label>
+       <input type="text" id="Nombre" name="Nombre" required>
+
+       <label for="Tipo">Tipo de documento</label>
+            <select name="Tipo" id="TD">
+                <option value="CC">CC</option>
+                <option value="TI">TI</option>
+
+            </select>
+            
+
+        <label for="Documento">Documento</label>
+        <input type="text" id="Documento" name="Documento" required>
+
+        <label for="id_manzanas">Manzana</label>
+            <select name="id_manzanas" id="TD">
+                <option value="1">Bosa</option>
+                <option value="2">Chapinero</option>
+                <option value="3">Suba</option>
+
+            </select>
+    <br>
+        
+        <button class="boton" type="submit">Enviar</button>
+        <a href="index.html"><button class="boton" type="button">Atras</button></a>
+      </form>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        const Manza = document.getElementsByName('Manza');
+        const TD = document.getElementsByName('TD');
+        const selectMan = document.getElementById('select_Man');
+        TD.addEventListener('select',()=>{
+            const xhrManzanas = new XMLHttpRequest();
+            xhrManzanas.open('POST', '/manzanas-usuario', true);
+            xhrManzanas.setRequestHeader('Content-Type', 'application/json');
+            xhrManzanas.onreadystatechange=function(){
+                if(xhrManzanas.readyState===4){
+                    if(xhrManzanas.status===200){
+                        const data = JSON.parse(xhrManzanas.responseText)
+                        Manza.innerHTML= '';
+                        data.manzanas.forEach(manzana=>{
+                            const row= document.createElement('option');
+                            row.innerHTML=
+                            `
+                            <option>${manzana}</option>
+                            <option name="manzana" value="${manzana}">${manzana.Nombre}</option>
+                            
+                            `
+                            TD.appendChild(row);
+                        });
+                        // Manza.style.display ='block';
+                    } else{
+                        console.error('error al obtener las nuevas manzanas')
+                    }
+                }
+            }
+            xhrManzanas.send();
+        })
+
+    });
+</script> -->
+</body>
+</html>
